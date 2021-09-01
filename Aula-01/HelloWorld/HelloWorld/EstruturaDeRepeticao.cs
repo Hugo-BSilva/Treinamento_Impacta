@@ -19,6 +19,7 @@ namespace HelloWorld
                 Console.WriteLine($"Argumento lido no foreach: {item}");
             }
 
+
             var loops2 = 0;
             while (loops2 < args.Length)
             {
@@ -26,6 +27,7 @@ namespace HelloWorld
                 Console.WriteLine($"Argumento lido no while: {argumento}");
                 loops2++;
             }
+
 
             var loops3 = 0;
             do
