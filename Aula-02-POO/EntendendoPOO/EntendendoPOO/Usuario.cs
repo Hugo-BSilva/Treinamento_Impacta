@@ -4,8 +4,8 @@ using System.Text;
 
 namespace EntendendoPOO
 {
-    class Cliente : Pessoa
+    class Usuario : Pessoa
     {
-        public bool IsMaiorDeIdade { get; set; }
+        public DateTime? Demissao;
     }
 }

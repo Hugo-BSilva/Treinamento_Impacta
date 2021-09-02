@@ -4,8 +4,9 @@ using System.Text;
 
 namespace EntendendoPOO
 {
-    class Cliente : Pessoa
+    class Pessoa
     {
-        public bool IsMaiorDeIdade { get; set; }
+        public int Id { get; set; }
+        public string Nome { get; set; }
     }
 }
