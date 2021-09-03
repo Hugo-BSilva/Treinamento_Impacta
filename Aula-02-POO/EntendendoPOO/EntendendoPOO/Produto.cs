@@ -13,6 +13,20 @@ namespace EntendendoPOO
         public decimal Valor { get; set; }
         public string Descricao { get; set; }
 
+        public Produto()
+        {
+
+        }
+        public Produto(int id, string tipo, string nome, DateTime validade, decimal valor, string descricao)
+        {
+            Id = id;
+            Tipo = tipo;
+            Nome = nome;
+            Validade = validade;
+            Valor = valor;
+            Descricao = descricao;
+        }
+
         public bool IsProdutoValido()
         {
             return Validade > DateTime.Now;
