@@ -1,8 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 
-namespace GerenciamentoDeArquivos
+namespace Exercicio01
 {
     class Program
     {
@@ -20,24 +20,21 @@ namespace GerenciamentoDeArquivos
                     return;
                 }
 
-                Console.WriteLine("Favor informe a operação a realizar: (1- Deletar 2- Criar  3- Atualizar 4-Selecionar) ");
+                Console.WriteLine("Favor informe a operação a realizar: (1- Criar  2- Atualizar) ");
                 var operacaoTxt = Console.ReadLine();
                 int operacao = int.Parse(operacaoTxt);
 
-                var arquivo = new ArquivoCRUD(nome);
+                var arquivo = new Arquivo(nome);
                 switch (operacao)
                 {
                     case 1:
-                        arquivo.DeletarArquivo();
+                        arquivo.CriarArquivo();
                         break;
                     case 2:
-                        arquivo.CriarArquivo();                       
-                        break;
-                    case 3:
                         arquivo.AtualizarArquivo();
                         break;
-                    case 4:
-                        arquivo.ListarArquivo();
+                    case 3:
+                        arquivo.ArquivoCSV();
                         break;
                     default:
                         throw new ArgumentException("Valor informado nao e um dos numeros disponiveis, favor refaca a operacao");
@@ -61,5 +58,7 @@ namespace GerenciamentoDeArquivos
                 throw;
             }
         }
+
+        
     }
 }

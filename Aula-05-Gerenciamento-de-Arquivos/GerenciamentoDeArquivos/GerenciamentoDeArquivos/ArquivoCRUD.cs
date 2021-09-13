@@ -11,20 +11,27 @@ namespace GerenciamentoDeArquivos
         private string Nome { get; set; }
         private string CaminhoCompleto;
 
+        
         public ArquivoCRUD(string nome)
         {
             Nome = nome;
+            CaminhoCompleto = CaminhoPadrao + Nome;
         }
-
-        public void DeletarArqquivo()
+        
+        public void DeletarArquivo()
         {
+            
             //var caminhoDoArquivo = @"C:\teste\teste.txt";
-            if (!File.Exists(CaminhoCompleto))
+            if (File.Exists(CaminhoCompleto))
             {
                 File.Delete(CaminhoCompleto);
                 if (!File.Exists(CaminhoCompleto))
                 {
-                    Console.WriteLine("");
+                    Console.WriteLine($"Arquivo {Nome} deletado com sucesso!");
+                }
+                else
+                {
+                    Console.WriteLine($"Arquivo {Nome} não pode ser deletado !");
                 }
             }
             else
@@ -37,19 +44,12 @@ namespace GerenciamentoDeArquivos
             if (!File.Exists(CaminhoCompleto))
             {
                 //File.Delete(CaminhoCompleto);
-                if (!File.Exists(CaminhoCompleto))
-                {
-                    EfetuarCapturaLinhasParaArquivo(null);
-                    Console.WriteLine($"Arquivo {Nome} criado com sucesso");
-                }
-                else
-                {
-                    Console.WriteLine($"Arquivo {Nome} não foi criado");
-                }
+                EfetuarCapturaLinhasParaArquivo(null);
+                Console.WriteLine($"Arquivo {Nome} criado com sucesso");
             }
             else
             {
-                Console.WriteLine($"Arquivo {Nome} nao existe na pasta de gerenciamento");
+                Console.WriteLine($"Arquivo {Nome} ja existente !");
             }
         }
 
@@ -75,7 +75,7 @@ namespace GerenciamentoDeArquivos
             }
         }
 
-        public void ListarArquivos()
+        public void ListarArquivo()
         {
             if (File.Exists(CaminhoCompleto))
             {
@@ -99,66 +99,62 @@ namespace GerenciamentoDeArquivos
         }
 
 
-        private void EfetuarCapturaLinhasParaArquivo(List<string> jaExistentes)
+        private void EfetuarCapturaLinhasParaArquivo(List<string> jaExistente)
         {
-            List<string> linhas = new List<string>();
+            string linha;
+            string concluiuProcesamento;
+            bool pararProcessamento = false;
+            List<string> linhas;
 
-            if (jaExistentes != null && jaExistentes.Count > 0)
+            if (jaExistente != null && jaExistente.Count > 0)
             {
-
+                linhas = jaExistente;
             }
             else
             {
                 linhas = new List<string>();
             }
-            string linha;
-            string concluiuProcessamento;
-            bool pararProcessamento = false;
 
             do
             {
-                Console.WriteLine("Favor informe a linha a ser incluida no arquivo");
+                Console.WriteLine("Favor informe a linha a ser incluida no arquivo (termine a digitação com enter para a proxima instrução)!");
                 linha = Console.ReadLine();
-                if (!string.IsNullOrEmpty(linha) && !string.IsNullOrWhiteSpace(linha))
-                {
-                    Console.WriteLine("Concluiu o preenchimento do arquivo? (S - Sim e N - Nao)");
-                    concluiuProcessamento = Console.ReadLine();
 
-                    if (concluiuProcessamento.Trim().ToUpper() == "S" || concluiuProcessamento.Trim().ToUpper() == "SIM")
+                if (!string.IsNullOrEmpty(linha) || !string.IsNullOrWhiteSpace(linha))
+                {
+                    Console.WriteLine("Concluiu o preenchimento do arquivo? (S/N)");
+                    concluiuProcesamento = Console.ReadLine();
+                    if (concluiuProcesamento.Trim().ToUpper() == "S" || concluiuProcesamento.Trim().ToUpper() == "Sim")
                     {
                         pararProcessamento = true;
                     }
+
+                    linhas.Add(linha);
+                }
+                using (StreamWriter sw = File.CreateText(CaminhoCompleto))
+                {
+                    foreach (var l in linhas)
+                    {
+                        sw.WriteLine(l);
+                    }
                 }
             } while (pararProcessamento == false);
-
-            using (StreamWriter sw = File.CreateText(CaminhoCompleto))
-            {
-                foreach (var item in linhas)
-                {
-                    Console.WriteLine(item);
-                }
-            }
-
-            Console.WriteLine($"Arquivo {Nome} criado e preenchido com sucesso");
         }
     }
-
-    
-
 }
-    // Criar e preencher um arquivo caso o arquivo teste.txt não exista
-    //Abre uma conexão com o arquivo
-    //                using (StreamWriter sw = File.CreateText(caminhoDoArquivo))
-    //                {
-    //                    sw.WriteLine("Meu primeiro txt em C#");
-    //                    sw.WriteLine("Primeira linha");
-    //                    sw.WriteLine("última linha");
-    //                }
-    //// Ler o arquivo gerado e imprimir no console
-    //using (StreamReader sr = File.OpenText(caminhoDoArquivo))
-    //        {
-    //            string line;
-    //            while ((line = sr.ReadLine()) != null)
-    //            {
-    //                Console.WriteLine(line);
+// Criar e preencher um arquivo caso o arquivo teste.txt não exista
+//Abre uma conexão com o arquivo
+//                using (StreamWriter sw = File.CreateText(caminhoDoArquivo))
+//                {
+//                    sw.WriteLine("Meu primeiro txt em C#");
+//                    sw.WriteLine("Primeira linha");
+//                    sw.WriteLine("última linha");
+//                }
+//// Ler o arquivo gerado e imprimir no console
+//using (StreamReader sr = File.OpenText(caminhoDoArquivo))
+//        {
+//            string line;
+//            while ((line = sr.ReadLine()) != null)
+//            {
+//                Console.WriteLine(line);
 
