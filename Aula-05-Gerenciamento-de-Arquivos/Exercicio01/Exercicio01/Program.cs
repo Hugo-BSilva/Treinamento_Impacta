@@ -20,7 +20,7 @@ namespace Exercicio01
                     return;
                 }
 
-                Console.WriteLine("Favor informe a operação a realizar: (1- Criar  2- Atualizar) ");
+                Console.WriteLine("Favor informe a operação a realizar: (1- Criar  2- Atualizar 3-Ler Arquivo CSV) ");
                 var operacaoTxt = Console.ReadLine();
                 int operacao = int.Parse(operacaoTxt);
 

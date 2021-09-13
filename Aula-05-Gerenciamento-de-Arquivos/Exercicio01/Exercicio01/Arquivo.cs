@@ -60,25 +60,31 @@ namespace Exercicio01
         {
             if (File.Exists(CaminhoCompleto))
             {
-                var reader = new StreamReader(File.OpenRead(CaminhoCompleto));
-                List<string> listA = new List<string>();
-                List<string> listB = new List<string>();
-
-                while (!reader.EndOfStream)
+                if (!Nome.Contains(".csv"))
                 {
-                    var line = reader.ReadLine();
-                    var values = line.Split(';');
+                    Console.WriteLine("O arquivo selecionado não é do tipo csv, favor tente novamente");
+                    return;
+                }
+                else
+                {
+                    List<string> jaExistentes = new List<string>();
+                    var reader = new StreamReader(File.OpenRead(CaminhoCompleto));
 
-                    listA.Add(values[0]);
-                    listB.Add(values[1]);
+                    using (StreamReader sr = File.OpenText(CaminhoCompleto))
+                    {
+                        string linha;
+                        while ((linha = sr.ReadLine()) != null)
+                        {
+                            var line = reader.ReadLine();
+                            var values = line.Split(';');
 
-                    foreach (var coloumn1 in listA)
-                    {
-                        Console.WriteLine(coloumn1);
-                    }
-                    foreach (var coloumn2 in listA)
-                    {
-                        Console.WriteLine(coloumn2);
+                            jaExistentes.Add(line);
+                            foreach (var item in jaExistentes)
+                            {
+                                Console.WriteLine($"ARQUIVO: {Nome} \n" + item.Replace(';', ' '));
+                            }
+                        }
+
                     }
                 }
             }
