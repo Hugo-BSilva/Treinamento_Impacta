@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TesteDapper.Models;
+using TesteDapper.Utils;
 
 namespace TesteDapper.Services
 {
@@ -13,11 +14,41 @@ namespace TesteDapper.Services
     {
         public static void ConsultarLinhas(string conexao)
         {
-            //using (var db = new SqlConnection(conexao))
-            //{
-            //    var query = @"SELECT * FROM tblAluno";
-            //    db.Execute(query);
-            //}
+            using (var db = new SqlConnection(conexao))
+            {
+                var alunos = db.Query<Aluno>("Select ID, NOME, DATA_NASCIMENTO as DataNascimento, RG From tblAluno").ToList();
+                //await db.OpenAsync();                
+                //var query = @"SELECT ID, NOME, DataNascimento as DataNascimento, RG FROM tblAluno";
+                //var alunos = await db.QueryAsync<Aluno>(query);
+                //db.Execute(query);
+
+                foreach (var aluno in alunos)
+                {
+                    Console.WriteLine("ID | NOME | DATA DE NASCIMENTO | RG");
+                    Console.WriteLine($"{aluno.Id} | {aluno.Nome} |" +
+                        $" {aluno.DataNascimento.FormatarDataSistema()} | {aluno.Rg}");
+                }
+            }
+        }
+
+        static async void ConsultarAluno(string conexao)
+        {
+            using (var db = new SqlConnection(conexao))
+            {
+                //var alunos = db.Query<Aluno>("Select ID, NOME, DATA_NASCIMENTO as DataNascimento, RG From tblAluno").ToList();
+                await db.OpenAsync();
+                var query = @"SELECT ID, NOME, DataNascimento as DataNascimento, RG FROM tblAluno
+                            WHERE AlunoId=@Id";
+                var alunos = await db.QueryAsync<Aluno>(query);
+                db.Execute(query);
+
+                foreach (var aluno in alunos)
+                {
+                    Console.WriteLine("ID | NOME | DATA DE NASCIMENTO | RG");
+                    Console.WriteLine($"{aluno.Id} | {aluno.Nome} |" +
+                        $" {aluno.DataNascimento.FormatarDataSistema()} | {aluno.Rg}");
+                }
+            }
         }
         public static void CriarAluno(string conexao)
         {
@@ -32,6 +63,7 @@ namespace TesteDapper.Services
                                VALUES (@Nome, @DataNascimento, @RG)";
                 db.Execute(query, aluno);
             }
+            Console.WriteLine("Aluno Criado!");
         }
         public static void AtualizarAluno(string conexao)
         {
@@ -45,8 +77,21 @@ namespace TesteDapper.Services
                 var query = @"Update tblAluno Set Nome=@Nome, DataNascimento=@DataNascimento, RG=@RG
                             Where AlunoId=@Id";
             }
+            Console.WriteLine("Aluno Atualizado !");
         }        
+        public static void DeletarAluno(string conexao)
+        {
+            int id = CapturarInformacoesInt("Id", null, null);
+            if (id == 0){ return; }
 
+            using (var db = new SqlConnection(conexao))
+            {
+                var query = @"DELETE FROM tblAluno WHERE ID=" + id;
+                db.Execute(query);
+
+                Console.WriteLine("Aluno Removido!");
+            }
+        }
         private static Aluno ObterDadosAluno()
         {
             Console.WriteLine("Informe qual o nome do aluno atualizado:");

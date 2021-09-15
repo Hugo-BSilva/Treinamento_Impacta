@@ -4,6 +4,8 @@ using System;
 using System.Data.SqlClient;
 using System.IO;
 using TesteDapper.Services;
+using TesteDapper.Models;
+using TesteDapper.Utils;
 
 namespace TesteDapper
 {
@@ -32,7 +34,7 @@ namespace TesteDapper
                 switch (opcao)
                 {
                     case 1:
-                        //DapperService.ConsultarLinhas(conexao);
+                        DapperService.ConsultarLinhas(conexao);
                         break;
                     case 2:
                         DapperService.CriarAluno(conexao);
@@ -41,7 +43,7 @@ namespace TesteDapper
                         DapperService.AtualizarAluno(conexao);
                         break;
                     case 4:
-                        //DapperService.RemoverAluno(conexao);
+                        DapperService.DeletarAluno(conexao);
                         break;
                     default:
                         Console.WriteLine("Opcao informada nao e valida, tente novamente!");
