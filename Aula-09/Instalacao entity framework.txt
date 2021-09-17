@@ -1,0 +1,15 @@
+1º No terminal git bash ou cmd executar o comando:
+dotnet tool install --global dotnet-ef
+
+2º Criar um DBContext com o mesmo nome do projeto
+
+3º Executar o comando:
+dotnet-ef migrations and InitialDatabase
+
+4º Atualizar a nova tabela no banco
+dotnet-ef database update
+
+5º Caso altere a classe, basta rodar:
+dotnet-ef migrations add UpdateAddTimestamp
+
+#PARA REMOVER A ÚTLIMA MIGRATION: dotnet-ef migrations remove
