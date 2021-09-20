@@ -12,4 +12,10 @@ dotnet-ef database update
 5º Caso altere a classe, basta rodar:
 dotnet-ef migrations add UpdateAddTimestamp
 
-#PARA REMOVER A ÚTLIMA MIGRATION: dotnet-ef migrations remove
+#PARA REMOVER A ÚTLIMA MIGRATION: dotnet-ef migrations remove -f (para forçar)
+
+
+
+
+
+

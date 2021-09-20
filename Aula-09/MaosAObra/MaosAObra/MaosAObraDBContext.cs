@@ -14,6 +14,10 @@ namespace TesteEntityFramework
     {
         //Lista de tabelas que queremos, tabela de blog
         public DbSet<Blog> Blog { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<Produto> Produto { get; set; }
+        public DbSet<Pedido> Pedido { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
