@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaosAObra02", "MaosAObra02\MaosAObra02.csproj", "{D7B627A7-0977-497C-A5FE-BE71A391312F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesteEF", "TesteEF\TesteEF.csproj", "{D6893A92-A74A-4213-B293-6DCC73178B5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D7B627A7-0977-497C-A5FE-BE71A391312F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D7B627A7-0977-497C-A5FE-BE71A391312F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D7B627A7-0977-497C-A5FE-BE71A391312F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D7B627A7-0977-497C-A5FE-BE71A391312F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6893A92-A74A-4213-B293-6DCC73178B5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6893A92-A74A-4213-B293-6DCC73178B5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6893A92-A74A-4213-B293-6DCC73178B5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6893A92-A74A-4213-B293-6DCC73178B5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {449AC6DC-995D-4EB0-9BA9-D1EA8839CF26}
+		SolutionGuid = {3BC21A8D-35DC-44DC-BCED-9FA7D5186A5F}
 	EndGlobalSection
 EndGlobal

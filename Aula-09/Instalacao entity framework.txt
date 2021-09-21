@@ -1,19 +1,21 @@
-1º No terminal git bash ou cmd executar o comando:
-dotnet tool install --global dotnet-ef
+1º No terminal git bash ou cmd executar o comando, para a instalação do entity na máquina:
+> dotnet tool install --global dotnet-ef
 
-2º Criar um DBContext com o mesmo nome do projeto
+2º Criar uma classe DBContext com o mesmo nome do projeto(ProjetoDBContext)
 
-3º Executar o comando:
-dotnet-ef migrations and InitialDatabase
+3º Executar o seguinte comando, após a criação das models/tabelas:
+> dotnet-ef migrations add InitialDatabase
 
-4º Atualizar a nova tabela no banco
-dotnet-ef database update
+4º Caso a criação da migration esteja correta, subir para o banco:
+> dotnet-ef database update
 
 5º Caso altere a classe, basta rodar:
-dotnet-ef migrations add UpdateAddTimestamp
+> dotnet-ef migrations add NomeDaMigration
 
-#PARA REMOVER A ÚTLIMA MIGRATION: dotnet-ef migrations remove -f (para forçar)
+#PARA REMOVER A ÚTLIMA MIGRATION: dotnet-ef migrations remove 
 
+Comando para atualizar o EF: 
+> dotnet tool update --global dotnet-ef
 
 
 
