@@ -40,11 +40,14 @@ namespace TesteEFP
                             funcoes.ExibirProdutos(produtos);
                             break;
                         case 2:
-                            SolicitarProdutosEUsuario();
+                            funcoes.SolicitarProdutosEUsuario();
                             break;
                         case 3:
+                            funcoes.ObterVendasPorUsuario();
                             break;
                         case 4:
+                            // GERAR ESSE ITEM NO HORÁRIO DE ALMOÇO
+                            funcoes.ObterItensPorProduto();
                             break;
                         default:
                             break;

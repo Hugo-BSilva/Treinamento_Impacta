@@ -18,7 +18,7 @@ namespace TesteEFP.Models
         public int Id_Usuario { get; set; }
 
         [Column("VALOR_TOTAL")]
-        public string Valor_Total { get; set; }
+        public decimal Valor_Total { get; set; }
 
         [ForeignKey("Id_Usuario")]
         public virtual Usuario Usuario { get; set; }
