@@ -12,6 +12,6 @@ namespace TesteEFP.Repositores
     {
         void Salvar(Venda venda);
         void Atualizar(Venda venda);
-        List<VendaPorUsuarioDto> ObterVendaPorUsuarioDTO();
+        List<VendaPorUsuarioDto> ObterVendasPorUsuario();
     }
 }

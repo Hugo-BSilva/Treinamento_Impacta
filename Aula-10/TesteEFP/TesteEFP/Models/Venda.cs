@@ -14,6 +14,7 @@ namespace TesteEFP.Models
         [Key]
         [Column("ID_VENDA")]
         public int Id { get; set; }
+
         [Column("ID_USUARIO")]
         public int Id_Usuario { get; set; }
 

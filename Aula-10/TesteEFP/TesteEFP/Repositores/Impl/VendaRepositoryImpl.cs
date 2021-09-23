@@ -34,7 +34,7 @@ namespace TesteEFP.Repositores
             _context.Entry(venda).State = EntityState.Detached; // ????
         }
 
-        public List<VendaPorUsuarioDto> ObterVendaPorUsuarioDTO()
+        public List<VendaPorUsuarioDto> ObterVendasPorUsuario()
         {
             return _context.Usuario.Include(e => e.Vendas).Select(e => new VendaPorUsuarioDto()
             {

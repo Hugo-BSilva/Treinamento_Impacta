@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,12 @@ namespace TesteEFP.Repositores
         {
             _context = context;
         }
+
+        public List<Produto> ObterItensPorProduto()
+        {
+            return _context.Produto.Include(e => e.ItensDoProdutoVendido).ToList();
+        }
+
         public List<Produto> ObterProdutos()
         {
             // Retorna apenas os produtos que não estão vencidos(vencimento antes da data atual(de hoje))

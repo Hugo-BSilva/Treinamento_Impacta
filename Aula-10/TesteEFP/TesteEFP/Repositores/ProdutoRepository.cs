@@ -11,5 +11,6 @@ namespace TesteEFP.Repositores
     {
         List<Produto> ObterProdutos();
         Produto SelecionarProdutoPorID(int idProduto);
+        List<Produto> ObterItensPorProduto();
     }
 }
