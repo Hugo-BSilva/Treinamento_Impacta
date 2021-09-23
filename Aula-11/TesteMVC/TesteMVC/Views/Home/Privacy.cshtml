@@ -1,6 +1,15 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
+    Layout = "_LayoutMinimalista";
 }
 <h1>@ViewData["Title"]</h1>
 
 <p>Use this page to detail your site's privacy policy.</p>
+
+@section Script{ 
+    <script>
+        windows.onload(function () {
+            alert('Pagina Carregada');
+        });
+    </script>
+}
