@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ProjMercado.Models
 {
     [Table("TB_VENDA")]
-    class Venda
+    public class Venda
     {
         [Key]
         [Column("ID_VENDA")]

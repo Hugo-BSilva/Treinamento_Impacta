@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ProjMercado.Models
 {
     
-    class Usuario
+    public class Usuario
     {
         
         public int Id { get; set; }
