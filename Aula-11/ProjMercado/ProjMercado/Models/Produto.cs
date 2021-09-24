@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ProjMercado.Models
 {
     [Table("TB_PRODUTO")]
-    class Produto
+    public class Produto
     {
         [Key]
         [Column("ID_PRODUTO")]
@@ -18,7 +18,7 @@ namespace ProjMercado.Models
         [Column("NOME_PRODUTO", TypeName = "VARCHAR(250)")]
         public string Nome_Produto { get; set; }
 
-        [Column("PRECO_PRODUTO")]
+        [Column("PRECO_PRODUTO", TypeName = "decimal(10,2)")]
         public decimal Preco_Produto { get; set; }
 
         [Column("DATA_VALIDADE")]

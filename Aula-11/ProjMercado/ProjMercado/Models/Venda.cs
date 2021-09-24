@@ -18,12 +18,12 @@ namespace ProjMercado.Models
         [Column("ID_USUARIO")]
         public int Id_Usuario { get; set; }
 
-        [Column("VALOR_TOTAL")]
+        [Column("VALOR_TOTAL", TypeName = "decimal(10,2)")]
         public decimal Valor_Total { get; set; }
 
         [ForeignKey("Id_Usuario")]
         public virtual Usuario Usuario { get; set; }
 
-        public virtual ICollection<VendaItem> Itens { get; set; }
+        public virtual ICollection<VendaItem> Items { get; set; }
     }
 }

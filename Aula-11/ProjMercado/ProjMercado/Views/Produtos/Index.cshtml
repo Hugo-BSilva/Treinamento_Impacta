@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ProjMercado.Models.Produto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome_Produto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preco_Produto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data_Validade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo_Produto)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome_Produto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Preco_Produto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data_Validade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo_Produto)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id_Produto">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id_Produto">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id_Produto">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
