@@ -19,5 +19,16 @@ namespace ProjMercado.Data
         public DbSet<ProjMercado.Models.Usuario> Usuario { get; set; }
 
         public DbSet<ProjMercado.Models.Venda> Venda { get; set; }
+
+        public DbSet<ProjMercado.Models.VendaItem> VendaItem { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            foreach(var relationshitp in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationshitp.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+        }
     }
 }

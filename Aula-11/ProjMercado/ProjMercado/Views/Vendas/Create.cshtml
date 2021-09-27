@@ -1,0 +1,65 @@
+﻿@model ProjMercado.Models.Venda
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Venda</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label for="Id_Usuario" class="control-label">Usuario</label>
+                @if (Model.Id > 0)
+                {
+                    <input type="hidden" asp-for="Id">
+                    <input type="hidden" asp-for="Id_Usuario">
+                    <select name="Id_Usuario" value="@Model.Id_Usuario" class="form-control" disabled="disable"></select>
+                }
+                else
+                {
+                    <select asp-for="Id_Usuario" class="form-control" asp-items="ViewBag.Id_Usuario"></select>
+                    <span class="text-danger">@ViewData["ErrorUsuario"]</span>
+                }
+            </div>
+            <div class="form-group">
+                <label for="Id_Produto" class="control-label">Produto</label>
+                <select name="Id_Produto" class="form-control" asp-items="ViewBag.Produtos"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Valor_Total" class="control-label"></label>
+                <input asp-for="Valor_Total" class="form-control" />
+                <span asp-validation-for="Valor_Total" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Quantidade" class="control-label"></label>
+                <input for="Quantidade" class="form-control" />
+                <span asp-validation-for="Valor_Total" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @if (Model != null && Model.Id > 0)
+                {
+                    <input type="submit" value="Add" class="btn btn-primary" />
+                    <input type="button" asp-action="Index" value="Finalizar" class="btn btn-secondary" />
+                }
+                else
+                {
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                }
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

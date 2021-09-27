@@ -15,15 +15,15 @@ namespace ProjMercado.Models
         [Column("ID_VENDA")]
         public int Id { get; set; }
 
-        [Column("ID_USUARIO")]
+        [Column("ID_USUARIO_VENDA")]
         public int Id_Usuario { get; set; }
 
         [Column("VALOR_TOTAL", TypeName = "decimal(10,2)")]
         public decimal Valor_Total { get; set; }
 
+
         [ForeignKey("Id_Usuario")]
         public virtual Usuario Usuario { get; set; }
-
         public virtual ICollection<VendaItem> Items { get; set; }
     }
 }

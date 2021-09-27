@@ -10,6 +10,8 @@ using ProjMercado.Models;
 
 namespace ProjMercado.Controllers
 {
+    [Controller]
+    [Route("Usuarios/")]
     public class UsuariosController : Controller
     {
         private readonly ProjMercadoContext _context;
@@ -25,6 +27,7 @@ namespace ProjMercado.Controllers
             return View(await _context.Usuario.ToListAsync());
         }
 
+        [Route("Details/{id}")]
         // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -43,6 +46,7 @@ namespace ProjMercado.Controllers
             return View(usuario);
         }
 
+        [Route("Create")]
         // GET: Usuarios/Create
         public IActionResult Create()
         {
@@ -54,6 +58,7 @@ namespace ProjMercado.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Create")]
         public async Task<IActionResult> Create([Bind("Id,Nome_Usuario,Data_Nascimento,Senha")] Usuario usuario)
         {
             if (ModelState.IsValid)
@@ -65,6 +70,7 @@ namespace ProjMercado.Controllers
             return View(usuario);
         }
 
+        [Route("Edit/{id}")]
         // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -86,6 +92,7 @@ namespace ProjMercado.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Edit/{id}")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome_Usuario,Data_Nascimento,Senha")] Usuario usuario)
         {
             if (id != usuario.Id)
@@ -116,6 +123,7 @@ namespace ProjMercado.Controllers
             return View(usuario);
         }
 
+        [Route("Delete/{id}")]
         // GET: Usuarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -137,6 +145,7 @@ namespace ProjMercado.Controllers
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Route("Delete/{id}")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var usuario = await _context.Usuario.FindAsync(id);

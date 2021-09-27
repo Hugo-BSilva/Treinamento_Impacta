@@ -10,6 +10,8 @@ using ProjMercado.Models;
 
 namespace ProjMercado.Controllers
 {
+    [Controller]
+    [Route("Produtos/")]
     public class ProdutosController : Controller
     {
         private readonly ProjMercadoContext _context;
@@ -19,12 +21,14 @@ namespace ProjMercado.Controllers
             _context = context;
         }
 
+        [Route("Index")]
         // GET: Produtos
         public async Task<IActionResult> Index()
         {
             return View(await _context.Produto.ToListAsync());
         }
 
+        [Route("Details/{id}")]
         // GET: Produtos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -43,7 +47,8 @@ namespace ProjMercado.Controllers
             return View(produto);
         }
 
-        // GET: Produtos/Create
+        [Route("Create")]
+        // GET: Produtos/Create        
         public IActionResult Create()
         {
             return View();
@@ -54,10 +59,22 @@ namespace ProjMercado.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id_Produto,Nome_Produto,Preco_Produto,Data_Validade,Tipo_Produto")] Produto produto)
+        [Route("Create")]
+        public async Task<IActionResult> Create(int Id_Produto, string Nome_Produto, string Preco_ProdutoDigitado, DateTime Data_Validade, string Tipo_Produto)
         {
-            if (ModelState.IsValid)
+            var Preco_ProdutoConvertido = Preco_ProdutoDigitado.Replace(".", ",");
+
+            var produto = new Produto()
             {
+                Id_Produto = Id_Produto,
+                Nome_Produto = Nome_Produto,
+                Preco_Produto = decimal.Parse(Preco_ProdutoConvertido),
+                Data_Validade = Data_Validade,
+                Tipo_Produto = Tipo_Produto
+            };
+
+            if (ModelState.IsValid)
+            {                
                 _context.Add(produto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -65,6 +82,7 @@ namespace ProjMercado.Controllers
             return View(produto);
         }
 
+        [Route("Edit/{id}")]
         // GET: Produtos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -86,6 +104,7 @@ namespace ProjMercado.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Edit")]
         public async Task<IActionResult> Edit(int id, [Bind("Id_Produto,Nome_Produto,Preco_Produto,Data_Validade,Tipo_Produto")] Produto produto)
         {
             if (id != produto.Id_Produto)
@@ -116,6 +135,7 @@ namespace ProjMercado.Controllers
             return View(produto);
         }
 
+        [Route("Delete/{id}")]
         // GET: Produtos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -137,6 +157,7 @@ namespace ProjMercado.Controllers
         // POST: Produtos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Route("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var produto = await _context.Produto.FindAsync(id);

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace ProjMercado.Controllers
 {
+    [Controller]
+    [Route("/")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,17 +20,14 @@ namespace ProjMercado.Controllers
             _logger = logger;
         }
 
+        
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [Route("/Error")]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
