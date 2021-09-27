@@ -17,5 +17,7 @@ namespace ProjMercado.Data
         public DbSet<ProjMercado.Models.Produto> Produto { get; set; }
 
         public DbSet<ProjMercado.Models.Usuario> Usuario { get; set; }
+
+        public DbSet<ProjMercado.Models.Venda> Venda { get; set; }
     }
 }
