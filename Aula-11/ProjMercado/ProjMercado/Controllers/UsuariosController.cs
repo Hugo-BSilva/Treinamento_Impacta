@@ -11,7 +11,7 @@ using ProjMercado.Models;
 namespace ProjMercado.Controllers
 {
     [Controller]
-    [Route("Usuarios/")]
+    [Route("[controller]")]
     public class UsuariosController : Controller
     {
         private readonly ProjMercadoContext _context;

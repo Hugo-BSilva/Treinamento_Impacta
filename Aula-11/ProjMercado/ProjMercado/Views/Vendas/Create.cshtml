@@ -18,7 +18,7 @@
                 {
                     <input type="hidden" asp-for="Id">
                     <input type="hidden" asp-for="Id_Usuario">
-                    <select name="Id_Usuario" value="@Model.Id_Usuario" class="form-control" disabled="disable"></select>
+                    <select name="Nome_Usuario" value="@Model.Id_Usuario" class="form-control" disabled="disabled"></select>
                 }
                 else
                 {
@@ -28,17 +28,13 @@
             </div>
             <div class="form-group">
                 <label for="Id_Produto" class="control-label">Produto</label>
-                <select name="Id_Produto" class="form-control" asp-items="ViewBag.Produtos"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Valor_Total" class="control-label"></label>
-                <input asp-for="Valor_Total" class="form-control" />
-                <span asp-validation-for="Valor_Total" class="text-danger"></span>
+                <select name="Nome_Produto" class="form-control" asp-items="ViewBag.Produtos"></select>
+                <span class="text-danger">@ViewData["ErrorProduto"]</span>
             </div>
             <div class="form-group">
                 <label for="Quantidade" class="control-label"></label>
                 <input for="Quantidade" class="form-control" />
-                <span asp-validation-for="Valor_Total" class="text-danger"></span>
+                <span class="text-danger">@ViewData["ErrorQuantidade"]</span>
             </div>
             <div class="form-group">
                 @if (Model != null && Model.Id > 0)
@@ -53,6 +49,43 @@
 
             </div>
         </form>
+    </div>
+    <div class="col-md-4">
+        @if (Model != null && Model.Id > 0)
+        {
+            <span>Total: R$@Model.Valor_Total</span>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Produto
+                        </th>
+                        <th>
+                            Valor
+                        </th>
+                        <th>
+                            Quantidade
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Produto.Nome_Produto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Produto.Preco_Produto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantidade)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
     </div>
 </div>
 

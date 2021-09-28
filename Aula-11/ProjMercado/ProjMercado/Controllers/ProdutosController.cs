@@ -11,7 +11,7 @@ using ProjMercado.Models;
 namespace ProjMercado.Controllers
 {
     [Controller]
-    [Route("Produtos/")]
+    [Route("[controller]")]
     public class ProdutosController : Controller
     {
         private readonly ProjMercadoContext _context;
@@ -21,7 +21,6 @@ namespace ProjMercado.Controllers
             _context = context;
         }
 
-        [Route("Index")]
         // GET: Produtos
         public async Task<IActionResult> Index()
         {
@@ -104,7 +103,7 @@ namespace ProjMercado.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Edit")]
+        [Route("Edit/{id}")]
         public async Task<IActionResult> Edit(int id, [Bind("Id_Produto,Nome_Produto,Preco_Produto,Data_Validade,Tipo_Produto")] Produto produto)
         {
             if (id != produto.Id_Produto)
@@ -157,7 +156,7 @@ namespace ProjMercado.Controllers
         // POST: Produtos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Route("Delete")]
+        [Route("Delete/{id}")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var produto = await _context.Produto.FindAsync(id);
