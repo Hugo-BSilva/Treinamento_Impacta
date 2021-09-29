@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjMercado.Models;
 
 namespace ProjMercado.Data
 {
-    public class ProjMercadoContext : DbContext
+    public class ProjMercadoContext : IdentityDbContext
     {
         public ProjMercadoContext (DbContextOptions<ProjMercadoContext> options)
             : base(options)
@@ -15,8 +16,6 @@ namespace ProjMercado.Data
         }
 
         public DbSet<ProjMercado.Models.Produto> Produto { get; set; }
-
-        public DbSet<ProjMercado.Models.Usuario> Usuario { get; set; }
 
         public DbSet<ProjMercado.Models.Venda> Venda { get; set; }
 

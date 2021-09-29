@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProjMercado.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace ProjMercado
 {
@@ -29,10 +30,19 @@ namespace ProjMercado
 
             services.AddDbContext<ProjMercadoContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ProjMercadoContext")));
+
+            services
+                .AddDefaultIdentity<IdentityUser>(options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                })
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ProjMercadoContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -54,7 +64,25 @@ namespace ProjMercado
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapRazorPages();
             });
+
+            CreateRoles(serviceProvider).Wait();
         }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager< IdentityRole >> ();
+            string[] rolesNames = { "ADMIN", "USER" };
+            IdentityResult result;
+            foreach (var nameRole in rolesNames)
+            {
+                var roleExist = await roleManager.RoleExistsAsync(nameRole);
+                if (!roleExist)
+                {
+                    result = await roleManager.CreateAsync(new IdentityRole(nameRole));
+                }
+            }
+         }
     }
 }

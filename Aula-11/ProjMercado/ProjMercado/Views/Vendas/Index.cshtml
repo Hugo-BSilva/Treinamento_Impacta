@@ -1,4 +1,8 @@
 ﻿@model IEnumerable<ProjMercado.Models.Venda>
+@using System.Linq
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Index";
@@ -15,25 +19,38 @@
             <th>
                 @Html.DisplayNameFor(model => model.Valor_Total)
             </th>
+            @if (SignInManager.IsSignedIn(User) && User.IsInRole("ADMIN"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Usuario)
+                </th>
+            }
             <th>
-                @Html.DisplayNameFor(model => model.Usuario)
+                Itens
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor_Total)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuario.Nome_Usuario)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor_Total)
+                </td>
+                @if (SignInManager.IsSignedIn(User) && User.IsInRole("ADMIN"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Usuario.UserName)
+                    </td>
+                }
+                <td>
+                    <span>@item.Items.Sum(i => i.Quantidade)</span>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

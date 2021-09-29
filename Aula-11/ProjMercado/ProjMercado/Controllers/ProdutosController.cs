@@ -24,6 +24,11 @@ namespace ProjMercado.Controllers
         // GET: Produtos
         public async Task<IActionResult> Index()
         {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("ADMIN"))
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+
             return View(await _context.Produto.ToListAsync());
         }
 
@@ -31,6 +36,11 @@ namespace ProjMercado.Controllers
         // GET: Produtos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("ADMIN"))
+            {
+                return Redirect("Identity/Account/Login");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -50,6 +60,11 @@ namespace ProjMercado.Controllers
         // GET: Produtos/Create        
         public IActionResult Create()
         {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("ADMIN"))
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+
             return View();
         }
 
@@ -61,6 +76,11 @@ namespace ProjMercado.Controllers
         [Route("Create")]
         public async Task<IActionResult> Create(int Id_Produto, string Nome_Produto, string Preco_ProdutoDigitado, DateTime Data_Validade, string Tipo_Produto)
         {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("ADMIN"))
+            {
+                return Redirect("/Identity/Account/Login");
+            } 
+
             var Preco_ProdutoConvertido = Preco_ProdutoDigitado.Replace(".", ",");
 
             var produto = new Produto()
@@ -85,6 +105,11 @@ namespace ProjMercado.Controllers
         // GET: Produtos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("ADMIN"))
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -104,12 +129,23 @@ namespace ProjMercado.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edit/{id}")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_Produto,Nome_Produto,Preco_Produto,Data_Validade,Tipo_Produto")] Produto produto)
+        public async Task<IActionResult> Edit(int Id_Produto, string Nome_Produto, string Preco_ProdutoDigitado, DateTime Data_Validade, string Tipo_Produto)
         {
-            if (id != produto.Id_Produto)
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("ADMIN"))
             {
-                return NotFound();
+                return Redirect("/Identity/Account/Login");
             }
+
+            var Preco_ProdutoConvertido = Preco_ProdutoDigitado.Replace(".", ",");
+
+            var produto = new Produto()
+            {
+                Id_Produto = Id_Produto,
+                Nome_Produto = Nome_Produto,
+                Preco_Produto = decimal.Parse(Preco_ProdutoConvertido),
+                Data_Validade = Data_Validade,
+                Tipo_Produto = Tipo_Produto
+            };
 
             if (ModelState.IsValid)
             {
@@ -138,6 +174,11 @@ namespace ProjMercado.Controllers
         // GET: Produtos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("ADMIN"))
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -153,12 +194,18 @@ namespace ProjMercado.Controllers
             return View(produto);
         }
 
+
         // POST: Produtos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Route("Delete/{id}")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("ADMIN"))
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+
             var produto = await _context.Produto.FindAsync(id);
             _context.Produto.Remove(produto);
             await _context.SaveChangesAsync();

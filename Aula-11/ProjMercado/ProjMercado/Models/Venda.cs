@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,15 +16,15 @@ namespace ProjMercado.Models
         [Column("ID_VENDA")]
         public int Id { get; set; }
 
-        [Column("ID_USUARIO_VENDA")]
-        public int Id_Usuario { get; set; }
+        [Column("ID_USUARIO_VENDA", TypeName = "nvarchar(450)")]
+        public string Id_Usuario { get; set; }
 
         [Column("VALOR_TOTAL", TypeName = "decimal(10,2)")]
         public decimal Valor_Total { get; set; }
 
 
         [ForeignKey("Id_Usuario")]
-        public virtual Usuario Usuario { get; set; }
+        public virtual IdentityUser Usuario { get; set; }
         public virtual ICollection<VendaItem> Items { get; set; }
     }
 }

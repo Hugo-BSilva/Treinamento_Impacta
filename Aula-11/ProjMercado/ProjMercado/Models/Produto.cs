@@ -22,11 +22,14 @@ namespace ProjMercado.Models
         public decimal Preco_Produto { get; set; }
 
         [Column("DATA_VALIDADE")]
+        [DataType(DataType.Date)]
         public DateTime Data_Validade { get; set; }
 
         [Column("TIPO_PRODUTO")]
         public string Tipo_Produto { get; set; }
 
+        [NotMapped]
+        public string ValorAExibir { get; set; }
 
         //Um produto tem uma VendaItem, uma VendaItem tem uma lista de produtos
         public virtual ICollection<VendaItem> ItensDoProdutoVendido { get; set; }

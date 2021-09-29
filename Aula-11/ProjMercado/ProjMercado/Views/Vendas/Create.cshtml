@@ -17,18 +17,18 @@
                 @if (Model != null && Model.Id > 0)
                 {
                     <input type="hidden" asp-for="Id">
-                    <input type="hidden" asp-for="Id_Usuario">
-                    <select name="Nome_Usuario" value="@Model.Usuario.Nome_Usuario" class="form-control" disabled="disabled"></select>
+                    //<input type="hidden" asp-for="Id_Usuario">
+                    //<select name="Name" value="@Model.Usuario.Nome_Usuario" class="form-control" disabled="disabled"></select>
                 }
-                else
+                @*else
                 {
                     <select asp-for="Id_Usuario" class="form-control" asp-items="ViewBag.Id_Usuario"></select>
                     <span class="text-danger">@ViewData["ErrorUsuario"]</span>
-                }
+                }*@
             </div>
             <div class="form-group">
                 <label for="Id_Produto" class="control-label">Produto</label>
-                <select name="Nome_Produto" class="form-control" asp-items="ViewBag.Produtos"></select>
+                <select name="Id_Produto" class="form-control" asp-items="ViewBag.Produtos"></select>
                 <span class="text-danger">@ViewData["ErrorProduto"]</span>
             </div>
             <div class="form-group">
@@ -40,7 +40,7 @@
                 @if (Model != null && Model.Id > 0)
                 {
                     <input type="submit" value="Add" class="btn btn-primary" />
-                    <input type="button" asp-action="Index" value="Finalizar" class="btn btn-secondary" />
+                    <a asp-action="Index" class="btn btn-secondary">Finalizar</a>
                 }
                 else
                 {
