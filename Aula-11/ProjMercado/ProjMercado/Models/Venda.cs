@@ -24,7 +24,7 @@ namespace ProjMercado.Models
 
 
         [ForeignKey("Id_Usuario")]
-        public virtual IdentityUser Usuario { get; set; }
-        public virtual ICollection<VendaItem> Items { get; set; }
+        public virtual IdentityUser Usuario { get; private set; }
+        public virtual ICollection<VendaItem> Items { get; private set; }
     }
 }
