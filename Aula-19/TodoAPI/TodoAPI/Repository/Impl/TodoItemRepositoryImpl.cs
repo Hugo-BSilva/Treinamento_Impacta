@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,20 +24,21 @@ namespace TodoAPI.Repository.Impl
 
         public async Task Excluir(int id)
         {
-            var query = _context.TodoItem.Where(e => e.Id = id);
+            var query = _context.TodoItem.Where(e => e.Id == id);
             _context.TodoItem.RemoveRange(query);
             await _context.SaveChangesAsync();
         }
 
         public async Task<TodoItem> GetById(int id)
         {
-            var todoItem = await _context.TodoItem.FindAsync(id);
+            //var todoItem = await _context.TodoItem.FindAsync(id);
+            return await _context.TodoItem.FindAsync(id);
         }
 
-        public async Task<List<IEnumerable<TodoItem>>> Listar()
+        public async Task<List<TodoItem>> Listar()
         {
             //return await _context.TodoItem.ToList();
-            return await _context.TodoItem.ToList();
+            return await _context.TodoItem.ToListAsync();
         }
 
         public async Task Salvar(TodoItem todo)
