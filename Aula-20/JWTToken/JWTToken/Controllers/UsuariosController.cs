@@ -62,7 +62,107 @@ namespace JWTToken.Controllers
             //Método vai gerar um senha criptografada
             usuario.Senha = PasswordUtil.GeneratePassword(dto.Senha);
 
-            _context.Entry(usuario).State = 
+            _context.Entry(usuario).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UsuarioExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+                return NoContent();
+            }
+        }
+
+        [HttpPost("register")]
+        [AllowAnonymous]
+        public async Task<ActionResult<Usuario>> CadastroPublico(SalvarUsuarioDto dto)
+        {
+            if (string.IsNullOrEmpty(dto.Senha) || string.IsNullOrWhiteSpace(dto.Senha))
+            {
+                return BadRequest("Favor informar todos os dados");
+            }
+
+            var usuario = new Usuario()
+            {
+                Nome = dto.Nome,
+                Email = dto.Email,
+                Senha = PasswordUtil.GeneratePassword(dto.Senha),
+                Perfil = "USER"
+            };
+
+            _context.Usuario.Add(usuario);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
+        }
+        
+
+        [HttpPost]
+        public async Task<ActionResult<Usuario>> PostUsuario(SalvarUsuarioDto dto)
+        {
+            var idUsuarioLogged = User.Claims.Where(e => e.Type == ClaimTypes.Sid).Select(e => e.Value).FirstOrDefault();
+
+            Usuario logged = null;
+            if (!string.IsNullOrEmpty(idUsuarioLogged))
+            {
+                logged = await _context.Usuario.FirstOrDefaultAsync(u => u.Id == int.Parse(idUsuarioLogged));
+            }
+
+            if (string.IsNullOrEmpty(dto.Senha) || string.IsNullOrWhiteSpace(dto.Senha))
+            {
+                return BadRequest("Favor informar todos os dados");
+            }
+
+            var usuario = new Usuario()
+            {
+                Nome = dto.Nome,
+                Email = dto.Email,
+                Senha = PasswordUtil.GeneratePassword(dto.Senha)
+            };
+
+            if (logged != null && logged.Perfil == "ADMIN")
+            {
+                usuario.Perfil = dto.Perfil;
+            }
+            else
+            {
+                usuario.Perfil = "USER";
+            }
+
+            _context.Usuario.Add(usuario);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "ADMIN")]
+        public async Task<IActionResult> DeleteUsuario(int id)
+        {
+            var usuario = await _context.Usuario.FindAsync(id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            _context.Usuario.Remove(usuario);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool UsuarioExists(int id)
+        {
+            return _context.Usuario.Any(e => e.Id == id);
         }
     }
 }
