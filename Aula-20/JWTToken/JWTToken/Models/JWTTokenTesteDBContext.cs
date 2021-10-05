@@ -8,7 +8,7 @@ namespace JWTToken.Models
 {
     public class JWTTokenTesteDBContext : DbContext
     {
-        private DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
 
         public JWTTokenTesteDBContext(DbContextOptions options) : base(options)
         {
