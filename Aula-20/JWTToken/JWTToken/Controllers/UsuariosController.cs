@@ -46,7 +46,7 @@ namespace JWTToken.Controllers
             return usuario;
         }
 
-        [HttpPut("{id}"]
+        [HttpPut("{id}")]
         [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> PutUsuario(int id, SalvarUsuarioDto dto)
         {
@@ -66,7 +66,7 @@ namespace JWTToken.Controllers
 
             try
             {
-                await _context.SaveChangesAsync();
+               return Ok(await _context.SaveChangesAsync());
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -76,9 +76,8 @@ namespace JWTToken.Controllers
                 }
                 else
                 {
-                    throw;
-                }
-                return NoContent();
+                    return NoContent();
+                }                
             }
         }
 

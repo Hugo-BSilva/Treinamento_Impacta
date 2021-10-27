@@ -29,7 +29,7 @@ namespace JWTToken
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<JWTTokenTesteDBContext>(option =>
-                option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

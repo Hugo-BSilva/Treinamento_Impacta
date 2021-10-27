@@ -19,7 +19,7 @@ namespace JWTToken.Services
             var keyInBytes = Encoding.ASCII.GetBytes(Secret.Key);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimIdentity(new Claim[]
+                Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Sid, usuario.Id.ToString()),
                     new Claim(ClaimTypes.Name, usuario.Nome),
