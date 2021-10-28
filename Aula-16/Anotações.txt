@@ -1,0 +1,13 @@
+Crie um projeto web API
+
+Atualize a connection string se necessário.
+
+Execute o comando: dotnet-ef database update para atualizar o banco e conseguir cadastrar
+os usuários.
+
+Configure a startup adicionando os serviços identity.
+
+Habilite os usuários via script do banco.
+
+Para adicionar a página Account/Register do identity, adicione um novo item scaffold identity,
+selecione Account/Register + dbContext e gere.
